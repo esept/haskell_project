@@ -1,0 +1,3 @@
+Ce projet orienté raisonnement logique, a été réalisé par KANE, XU et TRAORE ... 
+
+we should apply fromMaster tactic: https://wiki.haskell.org/Programming_guidelines

@@ -1,15 +1,19 @@
---import CPL
+import CPL
 
---genAllWorlds :: World -> [World]
-genAllWorlds [] = [[]]
-genAllWorlds [p] = [[], [p]]
-genAllWorlds (x : xs) = genChaqueWorlds x (genAllWorlds xs)
+door1 :: Formula
+door1 = Or (Var "p1") (Var "p2") -- porte 1
 
-{-
-genChaqueWorlds représente ma fonction intermédiaire, elle permet de concactener chaque chaine
-                de caractère avec l'ensemble des chaines restantes de la liste. Ce qui nous permet d'obtenir l'ensembles des mondes possibles
+door2 :: Formula
+door2 = (Var "t1") -- porte 2
 
--}
---genChaqueWorlds :: String -> [World] -> [World]
-genChaqueWorlds _ [] = []
-genChaqueWorlds v (x : xs) = x : (v : x) : genChaqueWorlds v xs
+-- constraint :: Formula
+-- constraint = And (Not (And (Var "p1") (Var "t1"))) (Not (And (Var "p2") (Var "t2")))
+
+reglement :: Formula
+reglement = Eqv (door1) (door2)
+
+constraint :: Formula
+constraint = And (Not (And (Var "p1") (Var "t1"))) (Not (And (Var "p2") (Var "t2")))
+
+challenge2 :: Formula
+challenge2 = And constraint reglement

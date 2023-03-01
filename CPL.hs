@@ -73,7 +73,7 @@ testSat = [
     sat ["t1"] (Imp (Var "t1") (Var "t2")) == False,
     sat ["t2"] (Imp (Var "t1") (Var "t2")) == True,
     sat ["t1","t2"] (Imp (Var "t1") (Var "t2")) == True,
-    sat [] (Eqv (Var "p1") (Var "t2")),
+    sat [] (Eqv (Var "p1") (Var "t2")) == True,
     sat ["t1","t2"] (Eqv (Var "t1") (Var "t2")) == True,
     sat ["t1"] (Eqv (Var "t1") (Var "t2")) == False,
     sat ["t2"] (Eqv (Var "t1") (Var "t2")) == False,

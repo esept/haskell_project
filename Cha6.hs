@@ -1,3 +1,5 @@
+module Cha6(challenge6) where 
+
 import CPL
 
 door1 :: Formula
@@ -14,6 +16,3 @@ reglement = Or (Eqv (door1) (Var "p1")) (Eqv (door2) (Or (Var "p2") (Var "t2")))
 
 challenge6 :: Formula
 challenge6 = And constraint reglement
-
--- *Main> findWorlds challenge6
--- [[],["p1"],["t1"],["p2"],["p1","p2"],["t1","p2"],["t2"],["p1","t2"],["t1","t2"]]

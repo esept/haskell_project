@@ -7,6 +7,7 @@ module EL
     epiSat,
     testEpiSat,
     update,
+    testUpdate,
   )
 where
 

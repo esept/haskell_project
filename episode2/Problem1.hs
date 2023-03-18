@@ -1,3 +1,5 @@
+module Problem1 where
+
 import EL
 
 interp :: Prop -> [World]

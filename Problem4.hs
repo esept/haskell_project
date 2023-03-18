@@ -35,17 +35,20 @@ indis "b" 43 = [23,43]
 indis "b" 34 = [34]
 
 s0 :: EpiState
-s0 = (interp , indis ,12)
+s0 = (interp , indis ,23)
 
 anneIgn :: EpiFormula 
-anneIgn = Not (Knows "a" (Var "b"))
+-- anneIgn = Not (Knows "a" (Var "b"))
+anneIgn = And (And (And (Not (Knows "a" (Var "b0"))) (Not (Knows "a" (Var "b1")))) (Not (Knows "a" (Var "b2")))) (And (Not (Knows "a" (Var "b3"))) (Not (Knows "a" (Var "b4"))))
+
 
 billIgnorance :: EpiFormula
-billIgnorance = Not (Knows "b" (Var "a"))
+-- billIgnorance = Not (Knows "b" (Var "a"))
+billIgnorance = And (And (And (Not (Knows "b" (Var "a0"))) (Not (Knows "b" (Var "a1")))) (Not (Knows "b" (Var "a2")))) (And (Not (Knows "b" (Var "a3"))) (Not (Knows "b" (Var "a4"))))
 
 problem4 :: EpiFormula
 problem4 = After(
         After
         (And (anneIgn) (billIgnorance)) 
-        (Not (anneIgn))
+        (anneIgn)
     )(Not (billIgnorance))

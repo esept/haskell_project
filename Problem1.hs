@@ -31,6 +31,8 @@ aliceIgn = And (Not (Knows "a" (Var "as")))(Not (Knows "a" (Not(Var "as"))))
 bobIgn :: EpiFormula
 bobIgn = And (Not (Knows "b" (Var "bs")))(Not (Knows "b" (Not(Var "bs"))))
 
+
+
 problem1 :: EpiFormula
 problem1 = After 
     (After 
@@ -39,11 +41,93 @@ problem1 = After
     ) 
     (Not (aliceIgn))
 
--- Les deux agents sont ignorants, et (And AliceIng bobIgn)
--- Après l’annonce du père, Alice est ignorante, et 
--- après l’annonce que Bob sait que son propre visage est sale, 
--- Alice et Bob ne sont pas ignorants. »
--- 
--- Note : L’annonce que Bob sait que son propre visage 
--- n’est pas sale est fait implicitement le moment 
--- où il part laver son visage sans même pas regarder le miroir.
+
+testEpiSat = [epiSat s0 (Not (Knows "a" (Var "as"))) == True,
+              epiSat s0 (Knows "a" (And (Var "as") (Var "bs"))) == False,
+              epiSat s0 (Knows "a" (Not (Knows "b" (Var "as")))) == False
+             ]
+
+➜  pro_2 ghci 
+GHCi, version 9.2.4: https://www.haskell.org/ghc/  :? for help
+ghci> :l Problem1.hs 
+[1 of 2] Compiling EL               ( EL.hs, interpreted )
+
+EL.hs:62:24: error:
+    • Couldn't match type: [Char]
+                     with: Prop -> [World]
+      Expected: Prop -> [World]
+        Actual: String
+    • In the expression: "as"
+      In the first argument of ‘epiSat’, namely ‘("as", "a", 01)’
+      In the first argument of ‘(==)’, namely
+        ‘epiSat ("as", "a", 01) (Not (Knows "a" (Var "as")))’
+   |
+62 | testEpiSat = [epiSat  ("as" , "a" , 01) (Not (Knows "a" (Var "as"))) == True,
+   |                        ^^^^
+
+EL.hs:62:31: error:
+    • Couldn't match type: [Char]
+                     with: Agent -> World -> [World]
+      Expected: Agent -> World -> [World]
+        Actual: String
+    • In the expression: "a"
+      In the first argument of ‘epiSat’, namely ‘("as", "a", 01)’
+      In the first argument of ‘(==)’, namely
+        ‘epiSat ("as", "a", 01) (Not (Knows "a" (Var "as")))’
+   |
+62 | testEpiSat = [epiSat  ("as" , "a" , 01) (Not (Knows "a" (Var "as"))) == True,
+   |                               ^^^
+
+EL.hs:63:24: error:
+    • Couldn't match type: [Char]
+                     with: Prop -> [World]
+      Expected: Prop -> [World]
+        Actual: String
+    • In the expression: "as"
+      In the first argument of ‘epiSat’, namely ‘("as", "a", 01)’
+      In the first argument of ‘(==)’, namely
+        ‘epiSat ("as", "a", 01) (Knows "a" (And (Var "as") (Var "bs")))’
+   |
+63 |               epiSat  ("as" , "a", 01) (Knows "a" (And (Var "as") (Var "bs"))) == False,
+   |                        ^^^^
+
+EL.hs:63:31: error:
+    • Couldn't match type: [Char]
+                     with: Agent -> World -> [World]
+      Expected: Agent -> World -> [World]
+        Actual: String
+    • In the expression: "a"
+      In the first argument of ‘epiSat’, namely ‘("as", "a", 01)’
+      In the first argument of ‘(==)’, namely
+        ‘epiSat ("as", "a", 01) (Knows "a" (And (Var "as") (Var "bs")))’
+   |
+63 |               epiSat  ("as" , "a", 01) (Knows "a" (And (Var "as") (Var "bs"))) == False,
+   |                               ^^^
+
+EL.hs:64:24: error:
+    • Couldn't match type: [Char]
+                     with: Prop -> [World]
+      Expected: Prop -> [World]
+        Actual: String
+    • In the expression: "as"
+      In the first argument of ‘epiSat’, namely ‘("as", "a", 01)’
+      In the first argument of ‘(==)’, namely
+        ‘epiSat ("as", "a", 01) (Knows "a" (Not (Knows "b" (Var "as"))))’
+   |
+64 |               epiSat  ("as" , "a" , 01) (Knows "a" (Not (Knows "b" (Var "as")))) == False
+   |                        ^^^^
+
+EL.hs:64:31: error:
+    • Couldn't match type: [Char]
+                     with: Agent -> World -> [World]
+      Expected: Agent -> World -> [World]
+        Actual: String
+    • In the expression: "a"
+      In the first argument of ‘epiSat’, namely ‘("as", "a", 01)’
+      In the first argument of ‘(==)’, namely
+        ‘epiSat ("as", "a", 01) (Knows "a" (Not (Knows "b" (Var "as"))))’
+   |
+64 |               epiSat  ("as" , "a" , 01) (Knows "a" (Not (Knows "b" (Var "as")))) == False
+   |                               ^^^
+Failed, no modules loaded.
+ghci> 

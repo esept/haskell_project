@@ -19,7 +19,7 @@ indis "b" 11 = [10,11]
 indis _ _  = []
 
 s0 :: EpiState
--- s0 = (interp,indis,01)
+s0 = (interp,indis,11)
 
 fatherAnn :: EpiFormula 
 fatherAnn = Or (Var "as") (Var "bs")
@@ -34,6 +34,6 @@ problem2 :: EpiFormula
 problem2 = After 
     (After 
         (And (fatherAnn) (And (aliceIgn) (bobIgn)))  -- 初始状态
-        (And (Not aliceIgn) (Not (bobIgn))) -- 最后状态
-    ) 
-    (And (aliceIgn) (bobIgn)) -- 中间态1 
+        (And (aliceIgn) (bobIgn)) -- 最后状态
+    )
+    (And (Not aliceIgn) (Not bobIgn)) -- 中间态1 

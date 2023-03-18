@@ -36,7 +36,7 @@ indis "c" 111 = [110,111]
 indis "c" 011 = [011,010]
 
 s0 :: EpiState
--- s0 = (interp,indis,01)
+s0 = (interp,indis,111)
 
 fatherAnn :: EpiFormula 
 fatherAnn = Or (Var "as") (Or (Var "bs") (Var "cs"))
@@ -51,10 +51,13 @@ carolineIgn :: EpiFormula
 carolineIgn = And (Not (Knows "c" (Var "cs")))(Not (Knows "c" (Not(Var "cs"))))
 
 problem3 :: EpiFormula
-problem3 = After 
-    (After 
-        (And (fatherAnn) (And (aliceIgn) (bobIgn)))  -- 初始状态
-        (And (Not aliceIgn) (Not (bobIgn))) -- 最后状态
+problem3 = After (
+    After
+        (After 
+            (And (fatherAnn) (And (And (aliceIgn) (bobIgn)) (carolineIgn)))  
+            (And (And (aliceIgn) (bobIgn)) (carolineIgn))
+        )
+        (And (And (aliceIgn) (bobIgn)) (carolineIgn))
     )
-    (And (aliceIgn) (bobIgn)) -- 中间态1 
+    (And (And (Not (aliceIgn)) (Not (bobIgn))) (Not (carolineIgn)))
 
